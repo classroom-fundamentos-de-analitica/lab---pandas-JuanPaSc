@@ -54,10 +54,8 @@ def pregunta_03():
     filas= set(tbl0["_c1"])
     columna_c1 = tbl0[["_c1"]]
     columna_c1["values"] = 1
-    columna_c1.groupby("_c1")["values"].count()
-
     return columna_c1.groupby("_c1")["values"].count()
-#print(pregunta_03())
+
 
 def pregunta_04():
     """
@@ -71,7 +69,10 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    filas= set(tbl0["_c1"])
+    columna_c1 = tbl0[["_c1","_c2"]]
+    return columna_c1.groupby("_c1")["_c2"].mean()
+
 
 
 def pregunta_05():
@@ -90,6 +91,7 @@ def pregunta_05():
     """
     return
 
+print(pregunta_05())
 
 def pregunta_06():
     """
