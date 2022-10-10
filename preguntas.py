@@ -73,8 +73,6 @@ def pregunta_04():
     columna_c1 = tbl0[["_c1","_c2"]]
     return columna_c1.groupby("_c1")["_c2"].mean()
 
-
-
 def pregunta_05():
     """
     Calcule el valor máximo de _c2 por cada letra en la columna _c1 del archivo
@@ -89,9 +87,11 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    filas= set(tbl0["_c1"])
+    columna_c1 = tbl0[["_c1","_c2"]]
+    return columna_c1.groupby("_c1")["_c2"].agg([max])
 
-print(pregunta_05())
+
 
 def pregunta_06():
     """
@@ -102,8 +102,10 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    filas= set(tbl1["_c4"])
+    return [x.upper() for x in sorted(list(filas))]
 
+print(pregunta_06())
 
 def pregunta_07():
     """
