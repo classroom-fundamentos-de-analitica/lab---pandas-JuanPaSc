@@ -51,9 +51,13 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
+    filas= set(tbl0["_c1"])
+    columna_c1 = tbl0[["_c1"]]
+    columna_c1["values"] = 1
+    columna_c1.groupby("_c1")["values"].count()
 
-    return 
-print(pregunta_03())
+    return columna_c1.groupby("_c1")["values"].count()
+#print(pregunta_03())
 
 def pregunta_04():
     """
