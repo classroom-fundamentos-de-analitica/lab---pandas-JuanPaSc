@@ -189,9 +189,12 @@ def pregunta_10():
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
 
-    columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1")["_c2"].agg([max])
-    
+    columna = tbl0[["_c1","_c2"]]
+    columna.set_index("_c1",inplace=True)
+    columna.groupby("_c1")
+    columna.sort_index(axis=0,ascending=True)
+    return columna
+
 
 
 print(pregunta_10())
