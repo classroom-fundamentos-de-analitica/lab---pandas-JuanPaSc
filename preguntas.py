@@ -54,10 +54,10 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    filas= set(tbl0["_c1"])
     columna_c1 = tbl0[["_c1"]]
     columna_c1["values"] = 1
-    return columna_c1.groupby("_c1")["values"].count()
+    return columna_c1.groupby("_c1").count()
+
 
 
 def pregunta_04():
@@ -72,9 +72,9 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    filas= set(tbl0["_c1"])
+
     columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1")["_c2"].mean()
+    return columna_c1.groupby("_c1").mean()
 
 def pregunta_05():
     """
@@ -90,9 +90,9 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    filas= set(tbl0["_c1"])
+
     columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1")["_c2"].agg([max])
+    return columna_c1.groupby("_c1").agg([max])
 
 
 
@@ -124,7 +124,7 @@ def pregunta_07():
     Name: _c2, dtype: int64
     """
     columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1")["_c2"].sum()
+    return columna_c1.groupby("_c1").sum()
 
 
 
@@ -195,9 +195,7 @@ def pregunta_10():
     columna.sort_index(axis=0,ascending=True)
     return columna
 
-
-
-print(pregunta_10())
+#print(pregunta_10())
 
 def pregunta_11():
     """
