@@ -191,6 +191,7 @@ def pregunta_10():
 
     columna_c1 = tbl0[["_c1","_c2"]]
     return columna_c1.groupby("_c1")["_c2"].agg([max])
+    
 
 
 print(pregunta_10())
