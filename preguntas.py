@@ -7,6 +7,9 @@ Este archivo contiene las preguntas que se van a realizar en el laboratorio.
 Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
 
 """
+from re import T
+from time import strftime
+from tkinter import Y
 import pandas as pd
 import numpy as np
 pd.set_option("display.notebook_repr_html", False)
@@ -105,7 +108,7 @@ def pregunta_06():
     filas= set(tbl1["_c4"])
     return [x.upper() for x in sorted(list(filas))]
 
-print(pregunta_06())
+
 
 def pregunta_07():
     """
@@ -120,7 +123,9 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    columna_c1 = tbl0[["_c1","_c2"]]
+    return columna_c1.groupby("_c1")["_c2"].sum()
+
 
 
 def pregunta_08():
@@ -138,7 +143,9 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    columna = tbl0.copy()
+    columna["suma"] = columna.sum(axis=1)
+    return columna
 
 
 def pregunta_09():
@@ -156,8 +163,16 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    from datetime import datetime
+    import time
+    columna = tbl0.copy()
+    columna["year"]= columna["_c3"]
 
+    [x[0:5] for x in columna["year"]]
+    
+    return columna
+
+#print(pregunta_09())
 
 def pregunta_10():
     """
@@ -173,8 +188,12 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
 
+    columna_c1 = tbl0[["_c1","_c2"]]
+    return columna_c1.groupby("_c1")["_c2"].agg([max])
+
+
+print(pregunta_10())
 
 def pregunta_11():
     """
