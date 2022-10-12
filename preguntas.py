@@ -7,6 +7,7 @@ Este archivo contiene las preguntas que se van a realizar en el laboratorio.
 Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
 
 """
+from msilib.schema import CompLocator
 from re import T, X
 from time import strftime
 from tkinter import Y
@@ -127,7 +128,6 @@ def pregunta_07():
     return columna_c1.groupby("_c1").sum()
 
 
-
 def pregunta_08():
     """
     Agregue una columna llamada `suma` con la suma de _c0 y _c2 al archivo `tbl0.tsv`.
@@ -163,16 +163,11 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    from datetime import datetime
-    import time
-    columna = tbl0.copy()
-    columna["year"]= columna["_c3"]
-
-    [x[0:5] for x in columna["year"]]
     
+    columna = tbl0.copy()
+    columna["year"] = columna["_c3"].copy().map(lambda x: x[0:4])    
     return columna
 
-#print(pregunta_09())
 
 def pregunta_10():
     """
@@ -191,9 +186,8 @@ def pregunta_10():
 
     columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
-    #columna.set_index("_c1",inplace=True)
-    columna = pd.merge()
-    return columna
+    columna.set_index("_c1",inplace=True)
+    return 
 
 print(pregunta_10())
 
@@ -213,9 +207,15 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    columna = tbl1[["_c0","_c4"]]
+    columna.set_index("_c0")
 
 
+    return columna
+
+#print(pregunta_11())    
+
+    
 def pregunta_12():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
@@ -231,6 +231,8 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+    
+
     return
 
 
@@ -248,4 +250,15 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    tabla0 = tbl0[["_c1","_c0"]]
+    tabla2 = tbl2[["_c5b","_c0"]]
+
+
+    tabla0 = tabla0.groupby("_c0").sum()
+    tabla2 = tabla2.groupby("_c0").sum()
+
+    tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
+    tabla3= tabla3.groupby("_c1").sum()
+
+    return tabla3
+   
