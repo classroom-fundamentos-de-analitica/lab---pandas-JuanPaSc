@@ -28,6 +28,7 @@ def pregunta_01():
     return len(tbl0)
 
 
+
 def pregunta_02():
     """
     ¿Cuál es la cantidad de columnas en la tabla `tbl0.tsv`?
@@ -37,6 +38,7 @@ def pregunta_02():
 
     """
     return len(tbl0.columns)
+
 
 def pregunta_03():
     """
@@ -54,7 +56,8 @@ def pregunta_03():
     """
     columna_c1 = tbl0[["_c1"]]
     columna_c1["values"] = 1
-    return columna_c1.groupby("_c1").count()
+    columna_c1 = columna_c1.groupby("_c1").count()
+    return columna_c1
 
 
 
@@ -72,7 +75,11 @@ def pregunta_04():
     """
 
     columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1").mean()
+
+    columna_c1 = columna_c1.groupby("_c1").mean()
+    return columna_c1
+
+print(pregunta_04())
 
 def pregunta_05():
     """
@@ -92,7 +99,7 @@ def pregunta_05():
     columna_c1 = tbl0[["_c1","_c2"]]
     return columna_c1.groupby("_c1").agg([max])
 
-
+#print(pregunta_05())
 
 def pregunta_06():
     """
@@ -186,7 +193,7 @@ def pregunta_10():
     columna.set_index("_c1",inplace=True)
     return 
 
-print(pregunta_10())
+#print(pregunta_10())
 
 def pregunta_11():
     """
@@ -257,5 +264,5 @@ def pregunta_13():
     tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
     tabla3= tabla3.groupby("_c1").sum()
 
-    return tabla3
+    return #tabla3
    
