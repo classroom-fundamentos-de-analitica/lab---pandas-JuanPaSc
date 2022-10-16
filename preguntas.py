@@ -25,7 +25,7 @@ def pregunta_01():
     40
 
     """
-    return len(tbl0)
+    return len(tbl0) #BUENO
 
 
 
@@ -37,7 +37,7 @@ def pregunta_02():
     4
 
     """
-    return len(tbl0.columns)
+    return len(tbl0.columns) #BUENO
 
 
 def pregunta_03():
@@ -58,7 +58,7 @@ def pregunta_03():
     columna_c1["values"] = 1
     columna_c1 = columna_c1.groupby("_c1").count()
     return columna_c1
-
+print(print(pregunta_03()))
 
 
 def pregunta_04():
@@ -111,7 +111,7 @@ def pregunta_06():
 
     """
     filas= set(tbl1["_c4"])
-    return [x.upper() for x in sorted(list(filas))]
+    return [x.upper() for x in sorted(list(filas))] #BUENO
 
 
 
@@ -152,7 +152,7 @@ def pregunta_08():
     """
     columna = tbl0.copy()
     columna["suma"] = columna.sum(axis=1)
-    return columna
+    return columna #BUENO
 
 
 def pregunta_09():
@@ -173,7 +173,7 @@ def pregunta_09():
     
     columna = tbl0.copy()
     columna["year"] = columna["_c3"].copy().map(lambda x: x[0:4])    
-    return columna
+    return columna #BUENO
 
 
 def pregunta_10():
