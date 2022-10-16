@@ -79,7 +79,7 @@ def pregunta_04():
     columna_c1 = columna_c1.groupby("_c1").mean()
     return columna_c1
 
-print(pregunta_04())
+
 
 def pregunta_05():
     """
@@ -129,9 +129,12 @@ def pregunta_07():
     Name: _c2, dtype: int64
     """
     columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1").sum()
 
+    columna_c1 = columna_c1.groupby("_c1").sum()
 
+    return columna_c1.rename(columns={"_c2":""})
+
+#print(pregunta_07())
 def pregunta_08():
     """
     Agregue una columna llamada `suma` con la suma de _c0 y _c2 al archivo `tbl0.tsv`.
