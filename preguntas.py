@@ -58,7 +58,7 @@ def pregunta_03():
     columna_c1["values"] = 1
     columna_c1 = columna_c1.groupby("_c1").count()
     return columna_c1
-print(print(pregunta_03()))
+
 
 
 def pregunta_04():
@@ -79,7 +79,7 @@ def pregunta_04():
     columna_c1 = columna_c1.groupby("_c1").mean()
     return columna_c1
 
-
+#print(print(pregunta_04()))
 
 def pregunta_05():
     """
@@ -131,10 +131,11 @@ def pregunta_07():
     columna_c1 = tbl0[["_c1","_c2"]]
 
     columna_c1 = columna_c1.groupby("_c1").sum()
+    columna_c1 = columna_c1.rename(columns={"_c2":""})
+    return columna_c1
 
-    return columna_c1.rename(columns={"_c2":""})
+print(pregunta_07())
 
-#print(pregunta_07())
 def pregunta_08():
     """
     Agregue una columna llamada `suma` con la suma de _c0 y _c2 al archivo `tbl0.tsv`.
@@ -267,5 +268,5 @@ def pregunta_13():
     tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
     tabla3= tabla3.groupby("_c1").sum()
 
-    return #tabla3
-   
+    return tabla3
+#print(pregunta_13())   
