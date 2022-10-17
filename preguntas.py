@@ -106,8 +106,10 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return [x.upper() for x in sorted(list(filas))] #BUENO
+    filas= set(tbl1["_c4"])
+    return [x.upper() for x in sorted(list(filas))] # BUENO 
 
+#print(pregunta_06())
 
 def pregunta_07():
     """
