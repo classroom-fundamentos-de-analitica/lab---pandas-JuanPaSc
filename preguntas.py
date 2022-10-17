@@ -191,9 +191,10 @@ def pregunta_10():
     columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
     columna.set_index("_c1",inplace=True)
-    return 
+    columna = str(":".join(columna))
+    return columna
 
-#print(pregunta_10())
+print(pregunta_10())
 
 
 def pregunta_11():
