@@ -8,6 +8,7 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 
 """
 import pandas as pd
+pd.set_option("display.notebook_repr_html", False)
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
@@ -73,7 +74,7 @@ def pregunta_04():
     columna_c1 = columna_c1.groupby("_c1").mean()
     return columna_c1
 
-#print(print(pregunta_04()))
+
 
 
 def pregunta_05():
