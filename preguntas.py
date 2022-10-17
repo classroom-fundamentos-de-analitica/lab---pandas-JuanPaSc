@@ -191,7 +191,7 @@ def pregunta_10():
     columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
     columna.set_index("_c1",inplace=True)
-    columna = str(":".join(columna))
+    columna["_c2"] = columna["_c2"].map(lambda x: ":".join(x))
     return columna
 
 print(pregunta_10())
