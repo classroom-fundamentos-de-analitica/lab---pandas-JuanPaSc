@@ -55,7 +55,7 @@ def pregunta_03():
     columna_c1["values"] = 1
     columna_c1 = columna_c1.groupby("_c1").count()
     #columna_c1 = columna_c1.rename(columns={"_c2":""})
-    return columna_c1["values"]
+    return columna_c1["values"] #BUENO
 
 #print(pregunta_03())
 
@@ -74,7 +74,7 @@ def pregunta_04():
     columna_c1 = tbl0[["_c1","_c2"]]
 
     columna_c1 = columna_c1.groupby("_c1").mean()
-    return columna_c1["_c2"]
+    return columna_c1["_c2"] #BUENO
 
 
 
@@ -265,5 +265,5 @@ def pregunta_13():
     tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
     tabla3= tabla3.groupby("_c1").sum()
 
-    return tabla3
+    return tabla3["_c5b"]
 #print(pregunta_13()) 
