@@ -54,10 +54,10 @@ def pregunta_03():
     columna_c1 = tbl0[["_c1"]]
     columna_c1["values"] = 1
     columna_c1 = columna_c1.groupby("_c1").count()
-    columna_c1 = pd.concat(objs=["Name: _c1,", "dtype: int64"], axis= 0, join= "outer", ignore_index= False, sort= False,)
-    return columna_c1
+    #columna_c1 = columna_c1.rename(columns={"_c2":""})
+    return columna_c1["values"]
 
-print(pregunta_03())
+#print(pregunta_03())
 
 def pregunta_04():
     """
@@ -74,7 +74,7 @@ def pregunta_04():
     columna_c1 = tbl0[["_c1","_c2"]]
 
     columna_c1 = columna_c1.groupby("_c1").mean()
-    return columna_c1
+    return columna_c1["_c2"]
 
 
 
@@ -193,10 +193,10 @@ def pregunta_10():
     columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
     columna.set_index("_c1",inplace=True)
-    columna["_c2"] = columna["_c2"].map(lambda x: ":".join(x))
+    #columna["_c2"] = columna["_c2"].map(lambda x: ":".join(x))
     return columna
 
-print(pregunta_10())
+#print(pregunta_10())
 
 
 def pregunta_11():
