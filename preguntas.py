@@ -194,10 +194,10 @@ def pregunta_10():
     columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
     columna.set_index("_c1",inplace=True)
-    #columna["_c2"] = columna["_c2"].map(lambda x: ":".join(x))
+    #columna["_c2"] = columna["_c2"].apply(lambda x: ":".join(x))
     return columna
 
-#print(pregunta_10())
+print(pregunta_10())
 
 
 def pregunta_11():
@@ -265,5 +265,5 @@ def pregunta_13():
     tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
     tabla3= tabla3.groupby("_c1").sum()
 
-    return tabla3["_c5b"]
+    return tabla3["_c5b"] #BUENO
 #print(pregunta_13()) 
