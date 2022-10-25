@@ -193,9 +193,11 @@ def pregunta_10():
     """
     columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
-    columna.set_index("_c1",inplace=True)
-    #columna["_c2"] = columna["_c2"].apply(lambda x: ":".join(x))
-    return columna
+    #columna.set_index("_c1",inplace=True)
+    #columna["_c2"] = columna["_c2"].map(lambda x: ":".join(x))
+    df = columna.copy()
+    df = df.to_numpy().transpose().tolist()
+    return 
 
 print(pregunta_10())
 
