@@ -8,6 +8,8 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 
 """
 import pandas as pd
+import numpy as np
+
 pd.set_option("display.notebook_repr_html", False)
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
@@ -191,12 +193,17 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    columna = tbl0[["_c1","_c2"]]
+    
+    """columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
     columna.set_index("_c1",inplace=True)
     df = columna.copy()
     df = df.groupby("_c1").apply(lambda x: ":".join(str(x)) ) 
-    return df
+    return df"""
+
+    Tabla_Nueva= tbl0[["_c1","_c2"]].copy().set_index("_c2").groupby("_c1")
+    proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
+    return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1")
 
 print(pregunta_10())
 
