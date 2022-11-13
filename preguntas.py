@@ -95,7 +95,7 @@ def pregunta_05():
     """
     columna_c1 = tbl0[["_c1","_c2"]]
     columna_c1=columna_c1.groupby("_c1").max()
-    return columna_c1["_c2"]
+    return columna_c1["_c2"] #BUENO
 
 #print(pregunta_05())
 
@@ -129,10 +129,10 @@ def pregunta_07():
     columna_c1 = tbl0[["_c1","_c2"]]
 
     columna_c1 = columna_c1.groupby("_c1").sum()
-    columna_c1 = columna_c1.rename(columns={"_c2":""})
-    return columna_c1
+    #columna_c1 = columna_c1.rename(columns={"_c2":""})
+    return columna_c1["_c2"]
 
-#print(pregunta_07())
+print(pregunta_07())
 
 
 def pregunta_08():
