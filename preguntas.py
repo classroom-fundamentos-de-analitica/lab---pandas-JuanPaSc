@@ -222,6 +222,7 @@ def pregunta_11():
     proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
     df = pd.DataFrame({"_c0":proc.keys(),"_c4":proc.values()}).set_index("_c4")
     df = df.reset_index()
+    df= df[["_c0","_c4"]]
     return df
     
 #2022-09-19  37:05 
