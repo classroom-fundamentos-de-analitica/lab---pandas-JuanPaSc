@@ -200,8 +200,6 @@ def pregunta_10():
     proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
     return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1") #BUENO
 
-
-
 def pregunta_11():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
@@ -223,11 +221,10 @@ def pregunta_11():
     df = pd.DataFrame({"_c0":proc.keys(),"_c4":proc.values()}).set_index("_c4")
     df = df.reset_index()
     df= df[["_c0","_c4"]]
-    return df
-    
+    return df #BUENO
+
 #2022-09-19  37:05 
 
-print(pregunta_11())
 
 def pregunta_12():
     """
@@ -244,7 +241,17 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    df= tbl2[["_c0","_c5a","_c5b"]].copy().sort_values(["_c0","_c5a"]).set_index("_c0")
+    df["_c5"] = df["_c5a"] + ":" + df["_c5b"].map(str)
+
+    df = df.reset_index()
+    df=df[["_c0","_c5"]]
+
+    Tabla_Nueva= df.copy().set_index("_c5").groupby("_c0")
+    proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
+    return pd.DataFrame({"_c0":proc.keys(),"_c5":proc.values()})
+
+    
 
 print(pregunta_12())
 
