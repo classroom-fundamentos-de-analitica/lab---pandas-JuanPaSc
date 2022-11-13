@@ -56,10 +56,8 @@ def pregunta_03():
     columna_c1 = tbl0[["_c1"]]
     columna_c1["values"] = 1
     columna_c1 = columna_c1.groupby("_c1").count()
-    #columna_c1 = columna_c1.rename(columns={"_c2":""})
     return columna_c1["values"] #BUENO
 
-#print(pregunta_03())
 
 def pregunta_04():
     """
@@ -99,7 +97,7 @@ def pregunta_05():
     columna_c1=columna_c1.groupby("_c1").agg([max])
     return columna_c1["_c2"]
 
-#print(pregunta_05())
+print(pregunta_05())
 
 
 def pregunta_06():
@@ -114,7 +112,6 @@ def pregunta_06():
     filas= set(tbl1["_c4"])
     return [x.upper() for x in sorted(list(filas))] # BUENO 
 
-#print(pregunta_06())
 
 def pregunta_07():
     """
@@ -203,9 +200,9 @@ def pregunta_10():
 
     Tabla_Nueva= tbl0[["_c1","_c2"]].copy().set_index("_c2").groupby("_c1")
     proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
-    return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1")
+    return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1") #BUENO
 
-print(pregunta_10())
+#print(pregunta_10())
 
 
 def pregunta_11():
