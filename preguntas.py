@@ -218,11 +218,11 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    columna = tbl1[["_c0","_c4"]]
-    columna = columna.set_index("_c0")
-
-
-    return columna
+    Tabla_Nueva= tbl1[["_c0","_c4"]].copy().set_index("_c4").groupby("_c0")
+    proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
+    df = pd.DataFrame({"_c0":proc.keys(),"_c4":proc.values()}).set_index("_c4")
+    df = df.reset_index()
+    return df
     
 #2022-09-19  37:05 
 
