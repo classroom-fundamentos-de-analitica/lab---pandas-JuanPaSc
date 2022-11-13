@@ -127,12 +127,10 @@ def pregunta_07():
     Name: _c2, dtype: int64
     """
     columna_c1 = tbl0[["_c1","_c2"]]
-
     columna_c1 = columna_c1.groupby("_c1").sum()
-    #columna_c1 = columna_c1.rename(columns={"_c2":""})
-    return columna_c1["_c2"]
+    return columna_c1["_c2"] #BUENO
 
-print(pregunta_07())
+
 
 
 def pregunta_08():
@@ -202,7 +200,6 @@ def pregunta_10():
     proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
     return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1") #BUENO
 
-#print(pregunta_10())
 
 
 def pregunta_11():
@@ -222,11 +219,14 @@ def pregunta_11():
     39   39    a,d,f
     """
     columna = tbl1[["_c0","_c4"]]
-    columna.set_index("_c0")
+    columna = columna.set_index("_c0")
 
 
     return columna
+    
 #2022-09-19  37:05 
+
+print(pregunta_11())
 
 def pregunta_12():
     """
@@ -245,6 +245,7 @@ def pregunta_12():
     """
     return
 
+print(pregunta_12())
 
 def pregunta_13():
     """
@@ -271,4 +272,4 @@ def pregunta_13():
     tabla3= tabla3.groupby("_c1").sum()
 
     return tabla3["_c5b"] #BUENO
-#print(pregunta_13()) 
+
