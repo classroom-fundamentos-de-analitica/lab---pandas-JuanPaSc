@@ -94,10 +94,10 @@ def pregunta_05():
     Name: _c2, dtype: int64
     """
     columna_c1 = tbl0[["_c1","_c2"]]
-    columna_c1=columna_c1.groupby("_c1").agg([max])
+    columna_c1=columna_c1.groupby("_c1").max()
     return columna_c1["_c2"]
 
-print(pregunta_05())
+#print(pregunta_05())
 
 
 def pregunta_06():
