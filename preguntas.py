@@ -8,7 +8,6 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 
 """
 import pandas as pd
-import numpy as np
 
 pd.set_option("display.notebook_repr_html", False)
 
@@ -77,8 +76,6 @@ def pregunta_04():
     return columna_c1["_c2"] #BUENO
 
 
-
-
 def pregunta_05():
     """
     Calcule el valor máximo de _c2 por cada letra en la columna _c1 del archivo
@@ -96,8 +93,6 @@ def pregunta_05():
     columna_c1 = tbl0[["_c1","_c2"]]
     columna_c1=columna_c1.groupby("_c1").max()
     return columna_c1["_c2"] #BUENO
-
-#print(pregunta_05())
 
 
 def pregunta_06():
@@ -129,8 +124,6 @@ def pregunta_07():
     columna_c1 = tbl0[["_c1","_c2"]]
     columna_c1 = columna_c1.groupby("_c1").sum()
     return columna_c1["_c2"] #BUENO
-
-
 
 
 def pregunta_08():
@@ -171,7 +164,6 @@ def pregunta_09():
     columna = tbl0.copy()
     columna["year"] = columna["_c3"].copy().map(lambda x: x[0:4])    
     return columna #BUENO
-
 
 
 def pregunta_10():
@@ -251,9 +243,6 @@ def pregunta_12():
     proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
     return pd.DataFrame({"_c0":proc.keys(),"_c5":proc.values()})
 
-    
-
-print(pregunta_12())
 
 def pregunta_13():
     """
