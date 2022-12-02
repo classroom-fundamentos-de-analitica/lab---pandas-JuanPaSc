@@ -1,20 +1,8 @@
-"""
-Laboratorio - Manipulación de Datos usando Pandas
------------------------------------------------------------------------------------------
-
-Este archivo contiene las preguntas que se van a realizar en el laboratorio.
-
-Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
-
-"""
 import pandas as pd
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
 tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
-
-
-
 
 def pregunta_01():
     """
@@ -24,7 +12,6 @@ def pregunta_01():
     """
     return len(tbl0)
 
-
 def pregunta_02():
     """
     ¿Cuál es la cantidad de columnas en la tabla `tbl0.tsv`?
@@ -32,7 +19,6 @@ def pregunta_02():
     4
     """
     return tbl0.shape[1]
-
 
 def pregunta_03():
     """
@@ -46,10 +32,8 @@ def pregunta_03():
     E    14
     Name: _c1, dtype: int64
     """
-    table = tbl0.groupby("_c1")["_c1"].size()
-    
+    table = tbl0.groupby("_c1")["_c1"].size() 
     return table
-
 
 def pregunta_04():
     """
@@ -63,7 +47,6 @@ def pregunta_04():
     Name: _c2, dtype: float64
     """
     table = tbl0.groupby("_c1").mean()["_c2"][0:]
-    
     return table
 
 
@@ -81,9 +64,7 @@ def pregunta_05():
     Name: _c2, dtype: int64
     """
     table = tbl0.groupby("_c1").max()["_c2"]
-    
     return table
-
 
 def pregunta_06():
     """
@@ -94,9 +75,7 @@ def pregunta_06():
     """
     table = [a.upper() for a in tbl1["_c4"].unique()]
     table.sort()
-    
     return table
-
 
 def pregunta_07():
     """
