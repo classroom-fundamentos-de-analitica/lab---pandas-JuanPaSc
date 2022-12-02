@@ -4,52 +4,41 @@ tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
 tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 
-
 def pregunta_01():
-    row=tbl0.shape[0]
-    return row
-
+    row1=tbl0.shape[0]
+    return row1
 
 def pregunta_02():
-    columnas=tbl0.shape[1]
-    return columnas
-
+    columnas2=tbl0.shape[1]
+    return columnas2
 
 def pregunta_03():
-    frecuencia_c1=tbl0['_c1'].value_counts().sort_index()
-    return frecuencia_c1
-
+    frecuencia_c3=tbl0['_c1'].value_counts().sort_index()
+    return frecuencia_c3
 
 def pregunta_04():
-    columnas_c1_c2_pro=tbl0.groupby('_c1')['_c2'].mean()
-    return columnas_c1_c2_pro
-
+    columnas_c1_c2=tbl0.groupby('_c1')['_c2'].mean()
+    return columnas_c1_c2
 
 def pregunta_05():
     columnas_c1_c2_max=tbl0.groupby('_c1')['_c2'].max()
     return columnas_c1_c2_max
 
-
 def pregunta_06():
     columnas_c4_upper=tbl1['_c4'].str.upper().unique()
     return sorted(columnas_c4_upper)
-
-
 
 def pregunta_07():
     columnas_c1_c2_sum=tbl0.groupby('_c1')['_c2'].sum()
     return columnas_c1_c2_sum
 
-
 def pregunta_08():
     tbl0['suma']=tbl0['_c0']+tbl0['_c2']
     return tbl0
 
-
 def pregunta_09():
     tbl0['year']=tbl0['_c3'].map(lambda x: x.split('-')[0])
     return tbl0
-
 
 def pregunta_10():
     def fun(x):
@@ -60,7 +49,6 @@ def pregunta_10():
         return cadena_c2[:-1]
     cadena_c1_c2=tbl0.groupby('_c1')['_c2'].apply(lambda x: fun(x)) 
     return pd.DataFrame(cadena_c1_c2, columns=['_c2'])
-
 
 def pregunta_11():
     def fun_11(x):
@@ -73,7 +61,6 @@ def pregunta_11():
     cadena_c0_c4=pd.DataFrame(cadena_c0_c4, columns=['_c4'])
     cadena_c0_c4.reset_index(inplace=True)
     return cadena_c0_c4
-
 
 def pregunta_12():
     def fun_12(x):
@@ -90,8 +77,7 @@ def pregunta_12():
     cadena_c0_c5a_c5b.reset_index(inplace=True)
     return cadena_c0_c5a_c5b
 
-
 def pregunta_13():
     df_tbl0_c1_tbl2_c5b=pd.merge(tbl0[['_c0','_c1']],tbl2[['_c0','_c5b']])
-    tbl0_c1_tbl2_c5b_sum=df_tbl0_c1_tbl2_c5b.groupby('_c1')['_c5b'].sum()
-    return tbl0_c1_tbl2_c5b_sum
+    tbl0_c1_tbl2_c5b_sum13=df_tbl0_c1_tbl2_c5b.groupby('_c1')['_c5b'].sum()
+    return tbl0_c1_tbl2_c5b_sum13
