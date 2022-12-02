@@ -9,40 +9,34 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 """
 import pandas as pd
 
-pd.set_option("display.notebook_repr_html", False)
-
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
 tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 
 
+
 def pregunta_01():
     """
     ¿Cuál es la cantidad de filas en la tabla `tbl0.tsv`?
-
     Rta/
     40
-
     """
-    return len(tbl0) #BUENOo
+    return len(tbl0)
 
 
 def pregunta_02():
     """
     ¿Cuál es la cantidad de columnas en la tabla `tbl0.tsv`?
-
     Rta/
     4
-
     """
-    return len(tbl0.columns) #BUENO
+    return tbl0.shape[1]
 
 
 def pregunta_03():
     """
     ¿Cuál es la cantidad de registros por cada letra de la columna _c1 del archivo
     `tbl0.tsv`?
-
     Rta/
     A     8
     B     7
@@ -50,19 +44,15 @@ def pregunta_03():
     D     6
     E    14
     Name: _c1, dtype: int64
-
     """
-    columna_c1 = tbl0[["_c1"]]
-    columna_c1["values"] = 1
-    columna_c1 = columna_c1.groupby("_c1").count()
-    return columna_c1["values"] #BUENO
-
+    table = tbl0.groupby("_c1")["_c1"].size()
+    
+    return table
 
 
 def pregunta_04():
     """
     Calcule el promedio de _c2 por cada letra de la _c1 del archivo `tbl0.tsv`.
-
     Rta/
     A    4.625000
     B    5.142857
@@ -71,18 +61,15 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    columna_c1 = tbl0[["_c1","_c2"]]
-
-    columna_c1 = columna_c1.groupby("_c1").mean()
-    return columna_c1["_c2"] #BUENO
-
+    table = tbl0.groupby("_c1").mean()["_c2"][0:]
+    
+    return table
 
 
 def pregunta_05():
     """
     Calcule el valor máximo de _c2 por cada letra en la columna _c1 del archivo
     `tbl0.tsv`.
-
     Rta/
     _c1
     A    9
@@ -92,30 +79,27 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    columna_c1 = tbl0[["_c1","_c2"]]
-    columna_c1=columna_c1.groupby("_c1").max()
-    return columna_c1["_c2"] #BUENO
-
+    table = tbl0.groupby("_c1").max()["_c2"]
+    
+    return table
 
 
 def pregunta_06():
     """
     Retorne una lista con los valores unicos de la columna _c4 de del archivo `tbl1.csv`
     en mayusculas y ordenados alfabéticamente.
-
     Rta/
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-
     """
-    filas= set(tbl1["_c4"])
-    return [x.upper() for x in sorted(list(filas))] # BUENO 
-
+    table = [a.upper() for a in tbl1["_c4"].unique()]
+    table.sort()
+    
+    return table
 
 
 def pregunta_07():
     """
     Calcule la suma de la _c2 por cada letra de la _c1 del archivo `tbl0.tsv`.
-
     Rta/
     _c1
     A    37
@@ -125,16 +109,14 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    columna_c1 = tbl0[["_c1","_c2"]]
-    columna_c1 = columna_c1.groupby("_c1").sum()
-    return columna_c1["_c2"] #BUENO
-
+    table = tbl0.groupby("_c1").sum()["_c2"]
+    
+    return table
 
 
 def pregunta_08():
     """
     Agregue una columna llamada `suma` con la suma de _c0 y _c2 al archivo `tbl0.tsv`.
-
     Rta/
         _c0 _c1  _c2         _c3  suma
     0     0   E    1  1999-02-28     1
@@ -144,18 +126,16 @@ def pregunta_08():
     37   37   C    9  1997-07-22    46
     38   38   E    1  1999-09-28    39
     39   39   E    5  1998-01-26    44
-
     """
-    columna = tbl0.copy()
-    columna["suma"] = columna.sum(axis=1)
-    return columna #BUENO
-
+    table = tbl0.copy()
+    table["suma"] = table["_c0"] + table["_c2"]
+    
+    return table
 
 
 def pregunta_09():
     """
     Agregue el año como una columna al archivo `tbl0.tsv`.
-
     Rta/
         _c0 _c1  _c2         _c3  year
     0     0   E    1  1999-02-28  1999
@@ -165,19 +145,17 @@ def pregunta_09():
     37   37   C    9  1997-07-22  1997
     38   38   E    1  1999-09-28  1999
     39   39   E    5  1998-01-26  1998
-
     """
-    columna = tbl0.copy()
-    columna["year"] = columna["_c3"].copy().map(lambda x: x[0:4])    
-    return columna #BUENO
-
+    table = tbl0.copy()
+    table["year"] = table["_c3"].str[:4]
+    
+    return table
 
 
 def pregunta_10():
     """
     Construya una tabla que contenga _c1 y una lista separada por ':' de los valores de
     la columna _c2 para el archivo `tbl0.tsv`.
-
     Rta/
                                    _c1
       _c0
@@ -187,25 +165,18 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
+    table = tbl0.copy()
+    table = table.groupby("_c1").agg({"_c2": lambda i: sorted(list(i))})
+    for z, a in table.iterrows():
+        a["_c2"] = ":".join([str(index) for index in a["_c2"]])
     
-    """columna = tbl0[["_c1","_c2"]]
-    columna=columna.sort_values(["_c1","_c2"])
-    columna.set_index("_c1",inplace=True)
-    df = columna.copy()
-    df = df.groupby("_c1").apply(lambda x: ":".join(str(x)) ) 
-    return df"""
-
-    Tabla_Nueva= tbl0[["_c1","_c2"]].copy().set_index("_c2").groupby("_c1")
-    proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
-    return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1") #BUENO
-
+    return table 
 
 
 def pregunta_11():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c4 del archivo `tbl1.tsv`.
-
     Rta/
         _c0      _c4
     0     0    b,f,g
@@ -217,21 +188,22 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    Tabla_Nueva= tbl1[["_c0","_c4"]].copy().set_index("_c4").groupby("_c0")
-    proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
-    df = pd.DataFrame({"_c0":proc.keys(),"_c4":proc.values()}).set_index("_c4")
-    df = df.reset_index()
-    df= df[["_c0","_c4"]]
-    return df #BUENO
-
-#2022-09-19  37:05 
-
+    table = tbl1.copy()
+    table = table.groupby("_c0").agg({"_c4": lambda i: sorted(list(i))})
+    for z, a in table.iterrows():
+        a["_c4"] = ",".join(str(index) for index in a['_c4'])
+    c0 = list(range(0,40))
+    table["_c0"] = c0
+    cols = table.columns.tolist()
+    cols = cols[-1:] + cols[:-1]
+    table = table[cols]
+    
+    return table 
 
 def pregunta_12():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c5a y _c5b (unidos por ':') de la tabla `tbl2.tsv`.
-
     Rta/
         _c0                                  _c5
     0     0        bbb:0,ddd:9,ggg:8,hhh:2,jjj:3
@@ -242,23 +214,24 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    df= tbl2[["_c0","_c5a","_c5b"]].copy().sort_values(["_c0","_c5a"]).set_index("_c0")
-    df["_c5"] = df["_c5a"] + ":" + df["_c5b"].map(str)
-
-    df = df.reset_index()
-    df=df[["_c0","_c5"]]
-
-    Tabla_Nueva= df.copy().set_index("_c5").groupby("_c0")
-    proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
-    return pd.DataFrame({"_c0":proc.keys(),"_c5":proc.values()})
+    import pandas as pd
     
+    t = tbl2.set_index(["_c5a", "_c5b"]).groupby("_c0").groups
+    a = {}
+    
+    for i in t.items():
+        for j in sorted(i[1]):
+            a.setdefault(i[0],[]).append(f"{j[0]}:{j[1]}")
+    
+    table = pd.DataFrame({"_c0":a.keys(), "_c5":[",".join(value) for value in a.values()]})
+    
+    return table
 
 
 def pregunta_13():
     """
     Si la columna _c0 es la clave en los archivos `tbl0.tsv` y `tbl2.tsv`, compute la
     suma de tbl2._c5b por cada valor en tbl0._c1.
-
     Rta/
     _c1
     A    146
@@ -268,15 +241,9 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    tabla0 = tbl0[["_c1","_c0"]]
-    tabla2 = tbl2[["_c5b","_c0"]]
-
-
-    tabla0 = tabla0.groupby("_c0").sum()
-    tabla2 = tabla2.groupby("_c0").sum()
-
-    tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
-    tabla3= tabla3.groupby("_c1").sum()
-
-    return tabla3["_c5b"] #BUENO
-
+    import pandas as pd
+    import numpy as np
+    
+    table = pd.merge(tbl2,tbl0).groupby("_c1")["_c5b"].sum()
+    
+    return table
