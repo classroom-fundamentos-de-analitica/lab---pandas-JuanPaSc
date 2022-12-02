@@ -7,9 +7,8 @@ Este archivo contiene las preguntas que se van a realizar en el laboratorio.
 Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
 
 """
-
 import pandas as pd
-import numpy as np
+
 pd.set_option("display.notebook_repr_html", False)
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
@@ -25,8 +24,7 @@ def pregunta_01():
     40
 
     """
-    return len(tbl0) #BUENO
-
+    return len(tbl0) #BUENOo
 
 
 def pregunta_02():
@@ -57,7 +55,7 @@ def pregunta_03():
     columna_c1 = tbl0[["_c1"]]
     columna_c1["values"] = 1
     columna_c1 = columna_c1.groupby("_c1").count()
-    return columna_c1
+    return columna_c1["values"] #BUENO
 
 
 
@@ -73,13 +71,12 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-
     columna_c1 = tbl0[["_c1","_c2"]]
 
     columna_c1 = columna_c1.groupby("_c1").mean()
-    return columna_c1
+    return columna_c1["_c2"] #BUENO
 
-#print(print(pregunta_04()))
+
 
 def pregunta_05():
     """
@@ -95,11 +92,11 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-
     columna_c1 = tbl0[["_c1","_c2"]]
-    return columna_c1.groupby("_c1").agg([max])
+    columna_c1=columna_c1.groupby("_c1").max()
+    return columna_c1["_c2"] #BUENO
 
-#print(pregunta_05())
+
 
 def pregunta_06():
     """
@@ -111,7 +108,7 @@ def pregunta_06():
 
     """
     filas= set(tbl1["_c4"])
-    return [x.upper() for x in sorted(list(filas))] #BUENO
+    return [x.upper() for x in sorted(list(filas))] # BUENO 
 
 
 
@@ -129,12 +126,10 @@ def pregunta_07():
     Name: _c2, dtype: int64
     """
     columna_c1 = tbl0[["_c1","_c2"]]
-
     columna_c1 = columna_c1.groupby("_c1").sum()
-    columna_c1 = columna_c1.rename(columns={"_c2":""})
-    return columna_c1
+    return columna_c1["_c2"] #BUENO
 
-print(pregunta_07())
+
 
 def pregunta_08():
     """
@@ -156,6 +151,7 @@ def pregunta_08():
     return columna #BUENO
 
 
+
 def pregunta_09():
     """
     Agregue el año como una columna al archivo `tbl0.tsv`.
@@ -171,10 +167,10 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    
     columna = tbl0.copy()
     columna["year"] = columna["_c3"].copy().map(lambda x: x[0:4])    
     return columna #BUENO
+
 
 
 def pregunta_10():
@@ -191,13 +187,19 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-
-    columna = tbl0[["_c1","_c2"]]
+    
+    """columna = tbl0[["_c1","_c2"]]
     columna=columna.sort_values(["_c1","_c2"])
     columna.set_index("_c1",inplace=True)
-    return 
+    df = columna.copy()
+    df = df.groupby("_c1").apply(lambda x: ":".join(str(x)) ) 
+    return df"""
 
-#print(pregunta_10())
+    Tabla_Nueva= tbl0[["_c1","_c2"]].copy().set_index("_c2").groupby("_c1")
+    proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
+    return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1") #BUENO
+
+
 
 def pregunta_11():
     """
@@ -215,15 +217,16 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    columna = tbl1[["_c0","_c4"]]
-    columna.set_index("_c0")
+    Tabla_Nueva= tbl1[["_c0","_c4"]].copy().set_index("_c4").groupby("_c0")
+    proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
+    df = pd.DataFrame({"_c0":proc.keys(),"_c4":proc.values()}).set_index("_c4")
+    df = df.reset_index()
+    df= df[["_c0","_c4"]]
+    return df #BUENO
+
+#2022-09-19  37:05 
 
 
-    return columna
-
-#print(pregunta_11())    
-
-    
 def pregunta_12():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
@@ -239,9 +242,16 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    
+    df= tbl2[["_c0","_c5a","_c5b"]].copy().sort_values(["_c0","_c5a"]).set_index("_c0")
+    df["_c5"] = df["_c5a"] + ":" + df["_c5b"].map(str)
 
-    return
+    df = df.reset_index()
+    df=df[["_c0","_c5"]]
+
+    Tabla_Nueva= df.copy().set_index("_c5").groupby("_c0")
+    proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
+    return pd.DataFrame({"_c0":proc.keys(),"_c5":proc.values()})
+    
 
 
 def pregunta_13():
@@ -268,5 +278,4 @@ def pregunta_13():
     tabla3= pd.concat([tabla0["_c1"],tabla2["_c5b"]],axis=1)
     tabla3= tabla3.groupby("_c1").sum()
 
-    return tabla3
-#print(pregunta_13())   
+    return tabla3["_c5b"] #BUENO
