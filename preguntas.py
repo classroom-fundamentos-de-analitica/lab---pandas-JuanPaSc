@@ -58,6 +58,7 @@ def pregunta_03():
     return columna_c1["values"] #BUENO
 
 
+
 def pregunta_04():
     """
     Calcule el promedio de _c2 por cada letra de la _c1 del archivo `tbl0.tsv`.
@@ -74,6 +75,7 @@ def pregunta_04():
 
     columna_c1 = columna_c1.groupby("_c1").mean()
     return columna_c1["_c2"] #BUENO
+
 
 
 def pregunta_05():
@@ -95,6 +97,7 @@ def pregunta_05():
     return columna_c1["_c2"] #BUENO
 
 
+
 def pregunta_06():
     """
     Retorne una lista con los valores unicos de la columna _c4 de del archivo `tbl1.csv`
@@ -106,6 +109,7 @@ def pregunta_06():
     """
     filas= set(tbl1["_c4"])
     return [x.upper() for x in sorted(list(filas))] # BUENO 
+
 
 
 def pregunta_07():
@@ -124,6 +128,7 @@ def pregunta_07():
     columna_c1 = tbl0[["_c1","_c2"]]
     columna_c1 = columna_c1.groupby("_c1").sum()
     return columna_c1["_c2"] #BUENO
+
 
 
 def pregunta_08():
@@ -146,6 +151,7 @@ def pregunta_08():
     return columna #BUENO
 
 
+
 def pregunta_09():
     """
     Agregue el año como una columna al archivo `tbl0.tsv`.
@@ -164,6 +170,7 @@ def pregunta_09():
     columna = tbl0.copy()
     columna["year"] = columna["_c3"].copy().map(lambda x: x[0:4])    
     return columna #BUENO
+
 
 
 def pregunta_10():
@@ -191,6 +198,8 @@ def pregunta_10():
     Tabla_Nueva= tbl0[["_c1","_c2"]].copy().set_index("_c2").groupby("_c1")
     proc = {g:":".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
     return pd.DataFrame({"_c1":proc.keys(),"_c2":proc.values()}).set_index("_c1") #BUENO
+
+
 
 def pregunta_11():
     """
@@ -242,6 +251,7 @@ def pregunta_12():
     Tabla_Nueva= df.copy().set_index("_c5").groupby("_c0")
     proc = {g:",".join(sorted([str(x) for x in c])) for g,c in Tabla_Nueva.groups.items()}
     return pd.DataFrame({"_c0":proc.keys(),"_c5":proc.values()})
+    
 
 
 def pregunta_13():
