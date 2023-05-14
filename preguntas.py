@@ -20,7 +20,7 @@ def pregunta_03():
 
 def pregunta_04():
 
-    return (tbl0.groupby("_c1").mean()["_c2"])
+    return (tbl0.groupby("_c1").mean()["_c2"]) #ready
 
 
 def pregunta_05():
