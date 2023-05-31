@@ -1,83 +1,123 @@
+"""
+Laboratorio - Manipulación de Datos usando Pandas
+-----------------------------------------------------------------------------------------
+
+Este archivo contiene las preguntas que se van a realizar en el laboratorio.
+
+Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
+
+"""
+from posixpath import split
+from unicodedata import numeric
 import pandas as pd
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
 tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 
+
 def pregunta_01():
-    row1=tbl0.shape[0]
-    return row1
+    return len(tbl0)
 
 def pregunta_02():
-    columnas2=tbl0.shape[1]
-    return columnas2
+    return len(tbl0.columns)
 
 def pregunta_03():
-    frecuencia_c3=tbl0['_c1'].value_counts().sort_index()
-    return frecuencia_c3
+    return tbl0['_c1'].value_counts().sort_index()
 
 def pregunta_04():
-    columnas_c1_c2=tbl0.groupby('_c1')['_c2'].mean()
-    return columnas_c1_c2
+    respuesta = tbl0[['_c1', '_c2']].groupby(['_c1']).mean()
+    serie = respuesta.squeeze()
+    return serie
 
 def pregunta_05():
-    columnas_c1_c2_max=tbl0.groupby('_c1')['_c2'].max()
-    return columnas_c1_c2_max
+    respuesta = tbl0[['_c1', '_c2']].groupby(['_c1']).max()
+    serie = respuesta.squeeze()
+    return serie
 
 def pregunta_06():
-    columnas_c4_upper=tbl1['_c4'].str.upper().unique()
-    return sorted(columnas_c4_upper)
+    unicos = tbl1['_c4'].unique()
+    salida = sorted(map(lambda x: x.upper(), unicos))
+    return salida
 
 def pregunta_07():
-    columnas_c1_c2_sum=tbl0.groupby('_c1')['_c2'].sum()
-    return columnas_c1_c2_sum
+    respuesta = tbl0[['_c1', '_c2']].groupby(['_c1']).sum()
+    serie = respuesta.squeeze()
+    return serie
 
 def pregunta_08():
-    tbl0['suma']=tbl0['_c0']+tbl0['_c2']
-    return tbl0
+    sumas = tbl0.sum(numeric_only=True, axis=1).tolist()
+    nuevoDf = tbl0.copy()
+    nuevoDf['suma'] = sumas 
+    return nuevoDf
 
 def pregunta_09():
-    tbl0['year']=tbl0['_c3'].map(lambda x: x.split('-')[0])
-    return tbl0
+    c3 = tbl0['_c3'].tolist()
+    years = list(map(lambda x: x.split('-')[0], c3))
+    nuevoDf = tbl0.copy()
+    nuevoDf['year'] = years
+    return nuevoDf
 
 def pregunta_10():
-    def fun(x):
-        lista_c2=sorted(list(x))
-        cadena_c2=""
-        for i in lista_c2:        
-            cadena_c2+=str(i)+":"
-        return cadena_c2[:-1]
-    cadena_c1_c2=tbl0.groupby('_c1')['_c2'].apply(lambda x: fun(x)) 
-    return pd.DataFrame(cadena_c1_c2, columns=['_c2'])
+    valores = tbl0[['_c1', '_c2']].groupby(['_c1'])['_c2'].apply(list).tolist()
+    c2 = []
+
+    for letra in valores:
+        texto = ''
+        for valor in sorted(letra):
+            texto += f'{valor}:'
+        
+        c2.append(texto[:-1])
+
+    return pd.DataFrame({
+        '_c2': c2
+    }, index = pd.Series(['A', 'B', 'C', 'D', 'E'], name='_c1'))
 
 def pregunta_11():
-    def fun_11(x):
-        lista_c4=sorted(list(x))
-        cadena_c4=""
-        for i in lista_c4:
-            cadena_c4+=str(i)+","
-        return cadena_c4[:-1]
-    cadena_c0_c4=tbl1.groupby('_c0')['_c4'].apply(lambda x: fun_11(x))
-    cadena_c0_c4=pd.DataFrame(cadena_c0_c4, columns=['_c4'])
-    cadena_c0_c4.reset_index(inplace=True)
-    return cadena_c0_c4
+    valores = tbl1.groupby(['_c0'])['_c4'].apply(list).tolist()
+    c0 = tbl1['_c0'].unique().tolist()
+    c4 = []
+
+    for numero in valores:
+        texto = ''
+        for valor in sorted(numero):
+            texto += f'{valor},'
+        
+        c4.append(texto[:-1])
+
+    return pd.DataFrame({
+        '_c0': c0,
+        '_c4': c4
+    })
 
 def pregunta_12():
-    def fun_12(x):
-        _c5a=list(x['_c5a'])
-        _c5b=list(x['_c5b'])
-        cadena=[_c5a[i]+':'+str(_c5b[i]) for i in range(len(_c5a))]
-        cadena=sorted(cadena)
-        cadena_c5a_c5b=""
-        for i in cadena:
-            cadena_c5a_c5b+=i+','
-        return cadena_c5a_c5b[:-1]
-    cadena_c0_c5a_c5b=tbl2.groupby('_c0')[['_c5a','_c5b']].apply(lambda x: fun_12(x))
-    cadena_c0_c5a_c5b=pd.DataFrame(cadena_c0_c5a_c5b, columns=['_c5'])
-    cadena_c0_c5a_c5b.reset_index(inplace=True)
-    return cadena_c0_c5a_c5b
+    c5a = tbl2.groupby(['_c0'])['_c5a'].apply(list).tolist()
+    c5b = tbl2.groupby(['_c0'])['_c5b'].apply(list).tolist()
+    c0 = tbl1['_c0'].unique().tolist()
+    
+    c5 = []
+
+    for i in range(len(c5a)):
+        x = []
+
+        for j in range(len(c5a[i])):
+            x.append(f'{c5a[i][j]}:{c5b[i][j]}')
+        
+        texto = ''
+
+        for valor in sorted(x):
+            texto += f'{valor},'
+
+        c5.append(texto[:-1])
+
+    return pd.DataFrame({
+        '_c0': c0,
+        '_c5': c5
+    })
 
 def pregunta_13():
-    df_tbl0_c1_tbl2_c5b=pd.merge(tbl0[['_c0','_c1']],tbl2[['_c0','_c5b']])
-    tbl0_c1_tbl2_c5b_sum13=df_tbl0_c1_tbl2_c5b.groupby('_c1')['_c5b'].sum()
-    return tbl0_c1_tbl2_c5b_sum13
+    join = pd.merge(tbl0, tbl2, on='_c0', how='inner')
+
+    respuesta = join[['_c1', '_c5b']].groupby(['_c1']).sum()
+    serie = respuesta.squeeze()
+    return serie
