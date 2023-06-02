@@ -19,6 +19,7 @@ tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 def pregunta_01():
     return len(tbl0)
 
+
 def pregunta_02():
     return len(tbl0.columns)
 
